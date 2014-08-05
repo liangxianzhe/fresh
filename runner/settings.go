@@ -111,11 +111,21 @@ func root() string {
 }
 
 func watchPath() string {
-	return settings["watch_path"]
+	watchPath := settings["watch_path"]
+	absWatchPath, err := filepath.Abs(watchPath)
+	if err != nil {
+		fatal(err)
+	}
+	return absWatchPath
 }
 
 func tmpPath() string {
-	return settings["tmp_path"]
+	tmpPath := settings["tmp_path"]
+	absTmpPath, err := filepath.Abs(tmpPath)
+	if err != nil {
+		fatal(err)
+	}
+	return absTmpPath
 }
 
 func buildName() string {
@@ -134,7 +144,12 @@ func buildErrorsFilePath() string {
 }
 
 func configPath() string {
-	return settings["config_path"]
+	configPath := settings["config_path"]
+	absConfigPath, err := filepath.Abs(configPath)
+	if err != nil {
+		fatal(err)
+	}
+	return absConfigPath
 }
 
 func buildDelay() time.Duration {
